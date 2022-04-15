@@ -1,11 +1,14 @@
 const path = require('path');
 const { ensureDir } = require('./utils');
-const object = require('./lib/object');
+const controller = require('./lib/controller');
 
 const makePersistentData = storePath => {
   ensureDir(storePath);
   const namespace = path.join(storePath, ' ').trimEnd();
-  return object.create(namespace);
+  return controller.storeValue({
+    namespace,
+    descriptor: { type: 'object' },
+  });
 };
 
 module.exports = makePersistentData;
